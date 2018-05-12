@@ -28,13 +28,15 @@
           <a class="mdl-navigation__link" href=""><router-link class="navLink" to="/about">About</router-link> </a>
         </nav>
       </div>
+
+
+          <div id="nav">
+              <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link>
+          </div>
+              <router-view @authenticated="setAuthenticated" />
+        </div>
     </div>
 
-    <div id="nav">
-        <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link>
-    </div>
-        <router-view @authenticated="setAuthenticated" />
-  </div>
 </template>
 
 <script>
