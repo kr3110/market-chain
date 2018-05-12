@@ -7,10 +7,7 @@ async function payOut(shipmentReceived) {  // eslint-disable-line no-unused-vars
 
     const contract = shipmentReceived.shipment.contract;
     const shipment = shipmentReceived.shipment;
-    let payOut = contract.unitPrice * shipment.unitCount;
-
-    console.log('Received at: ' + shipmentReceived.timestamp);
-    console.log('Contract arrivalDateTime: ' + contract.arrivalDateTime);
+    let payOut = shipmentReceived.shipment.shipmentPrice;
 
     // set the status of the shipment
     shipment.status = 'ARRIVED';
