@@ -15,16 +15,15 @@ namespace org.example.mktchain
  */
 
 
-/**
- * The type of perishable product being shipped
- */
-enum ProductType {
-  o BANANAS
-  o APPLES
-  o PEARS
-  o PEACHES
-  o COFFEE
-}
+ asset Product identified by id{
+   o String name
+   o String id
+   o String price
+   o DateTime origin
+   o String owner
+ }
+
+
 
 /**
  * The status of a shipment
@@ -42,13 +41,6 @@ abstract transaction ShipmentTransaction {
   --> Shipment shipment
 }
 
-/**
- * An temperature reading for a shipment. E.g. received from a
- * device within a temperature controlled shipping container
- */
-transaction TemperatureReading extends ShipmentTransaction {
-  o Double centigrade
-}
 
 /**
  * A notification that a shipment has been received by the
@@ -58,15 +50,14 @@ transaction TemperatureReading extends ShipmentTransaction {
 transaction ShipmentReceived extends ShipmentTransaction {
 }
 
+
 /**
  * A shipment being tracked as an asset on the ledger
  */
 asset Shipment identified by shipmentId {
   o String shipmentId
-  o ProductType type
+  o Product type
   o ShipmentStatus status
-  o Long unitCount
-  o TemperatureReading[] temperatureReadings optional
   --> Contract contract
 }
 
@@ -78,15 +69,10 @@ asset Shipment identified by shipmentId {
  */
 asset Contract identified by contractId {
   o String contractId
-  --> Grower grower
-  --> Shipper shipper
-  --> Importer importer
+  --> Business buyer
+  --> Business seller
   o DateTime arrivalDateTime
   o Double unitPrice
-  o Double minTemperature
-  o Double maxTemperature
-  o Double minPenaltyFactor
-  o Double maxPenaltyFactor
 }
 
 /**
@@ -100,34 +86,12 @@ concept Address {
 }
 
 /**
- * An abstract participant type in this business network
+ * A participant type in this business network
  */
-abstract participant Business identified by email {
+participant Business identified by email {
   o String email
   o Address address
   o Double accountBalance
-}
-
-/**
- * A Grower is a type of participant in the network
- */
-participant Grower extends Business {
-}
-
-/**
- * A Shipper is a type of participant in the network
- */
-participant Shipper extends Business {
-}
-
-/**
- * An Importer is a type of participant in the network
- */
-participant Importer extends Business {
-}
-
-/**
- * JUST FOR INITIALIZING A DEMO
- */
-transaction SetupDemo {
+  o String type
+  o String name
 }
