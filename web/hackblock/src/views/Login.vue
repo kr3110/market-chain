@@ -3,9 +3,8 @@
     <img src="../assets/logo.png">
     <input type="text" name="username" v-model="input.username" placeholder="Username">
     <input type="password" name="password" v-model="input.password" placeholder="Password">
-    <button type="button" @click="login()" name="button"> Login </button>
-    <button type="button" @click="register()" name="button"> Sign up </button>
-
+    <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" @click="login()" name="button"> Login </button>
+    <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" @click="register()" name="button"> Sign up </button>
   </div>
 </template>
 
