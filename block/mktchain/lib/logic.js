@@ -12,18 +12,14 @@ async function payOut(shipmentReceived) {  // eslint-disable-line no-unused-vars
     // set the status of the shipment
     shipment.status = 'ARRIVED';
 
-    console.log('Payout: ' + payOut);
     contract.seller.accountBalance += payOut;
     contract.buyer.accountBalance -= payOut;
 
-    console.log('buyer: ' + contract.buyer.$identifier + ' new balance: ' + contract.buyer.accountBalance);
-    console.log('Seller: ' + contract.seller.$identifier + ' new balance: ' + contract.seller.accountBalance);
-
-    // update the grower's balance
+    // update the buyes's
     const growerRegistry = await getParticipantRegistry('org.example.mktchain.Business');
     await growerRegistry.update(contract.buyer);
 
-    // update the importer's balance
+    // update the sellers's balance
     const importerRegistry = await getParticipantRegistry('org.example.mktchain.Business');
     await importerRegistry.update(contract.seller);
 }

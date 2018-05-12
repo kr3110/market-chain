@@ -2,11 +2,7 @@
 /**
  * Write your model definitions here
  */
-
 namespace org.example.mktchain
-
-
-
 /**
  * A business network for shipping perishable goods
  * The cargo is temperature controlled and contracts
@@ -15,15 +11,13 @@ namespace org.example.mktchain
  */
 
 
- asset Product identified by id{
+ asset Product identified by id {
    o String name
    o String id
    o String price
    o DateTime origin
    o String owner
  }
-
-
 
 /**
  * The status of a shipment
@@ -42,10 +36,11 @@ abstract transaction ShipmentTransaction {
 }
 
 
+
 /**
  * A notification that a shipment has been received by the
- * importer and that funds should be transferred from the importer
- * to the grower to pay for the shipment.
+ * buyer and that funds should be transferred from the buyer
+ * to the seller.
  */
 transaction ShipmentReceived extends ShipmentTransaction {
 }
@@ -56,9 +51,10 @@ transaction ShipmentReceived extends ShipmentTransaction {
  */
 asset Shipment identified by shipmentId {
   o String shipmentId
-  o Product type
+  o Product[] type
   o ShipmentStatus status
   --> Contract contract
+  o Double shipmentPrice
 }
 
 /**
@@ -72,7 +68,7 @@ asset Contract identified by contractId {
   --> Business buyer
   --> Business seller
   o DateTime arrivalDateTime
-  o Double unitPrice
+  o Double totalPrice
 }
 
 /**
