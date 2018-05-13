@@ -6,7 +6,7 @@
            <div class="mdl-card__title mdl-card--expand">
 
             <br>
-            <table v-if="searchIsClicked()" style="width:50%">
+            <table style="width:50%">
               <tr style="text-align: left; ">Business Info</tr>
               <!-- <tr style="text-align: center">              Business Info</tr> -->
               <tr>
