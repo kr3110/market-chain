@@ -6,13 +6,18 @@
 --real problem took place (boolean)
 --buyer raised claim (boolean)
 --Supplier accepted claim (boolean)
-CREATE TABLE mktchain (
-id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-datetime VARCHAR(30) NOT NULL,
-supplier_id VARCHAR(50),
-buyer_id VARCHAR(80),
-deal_sum VARCHAR(80),
-real_problem_took_place VARCHAR(80),
-buyer_raised_claim VARCHAR(80),
-supplier_accepted_claim VARCHAR(80) 
+CREATE TABLE mkt_users (
+id serial PRIMARY KEY,
+name VARCHAR(30) NOT NULL,
+email VARCHAR(50),
+password VARCHAR(80),
+location point,
+is_warehouse BOOLEAN,
+issue_notes VARCHAR(400),
+issue BOOLEAN NOT NULL,
+claim_raised BOOLEAN NOT NULL,
+claim_resolved BOOLEAN NOT NULL 
 );
+
+INSERT INTO mkt_users (name, email, password, location, is_warehouse, issue_notes, issue, claim_raised, claim_resolved)
+VALUES ('Johnsons Market Inc', 'john@example.com', MD5('abc123'), point(14.333,21.4443), FALSE, 'This farm is not organic they mistreat their animal', TRUE, TRUE, FALSE);
