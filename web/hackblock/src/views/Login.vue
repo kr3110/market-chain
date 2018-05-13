@@ -1,11 +1,14 @@
 <template>
   <div class="login container">
-    <img src="../assets/logo.png">
+    <div class="section"></div>
+      <div class="section"></div>
+        <div class="section"></div>
+    <img id="logo" src="../assets/marketchainlogo.png">
     <div class=" container">
     <input type="text" name="username" v-model="input.username" placeholder="Username">
     <input type="password"  name="password" v-model="input.password" placeholder="Password">
-    <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" @click="login()" name="button"> Login </button>
-    <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" @click="register()" name="button"> Sign up </button>
+      <button type="button" class="blue darken-4 btn" @click="login()" name="button">Login </button>
+            <button type="button" class="blue darken-4 btn" @click="register()" name="button"> Sign up  </button>
   </div>
   </div>
 </template>
@@ -39,3 +42,9 @@ export default {
   }
 };
 </script>
+<style>
+#logo{
+  height: 200px;
+  width: 200px;
+}
+</style>
