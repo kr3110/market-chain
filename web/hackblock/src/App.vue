@@ -18,6 +18,9 @@
           <nav class="mdl-navigation mdl-layout--large-screen-only">
             <a class="mdl-navigation__link" href=""><router-link class="navLink" to="/home">Home</router-link> </a>
             <a class="mdl-navigation__link" href=""><router-link class="navLink" to="/about">About</router-link> </a>
+            <div id="nav" class="mdl-navigation__link">
+                <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link>
+            </div>
           </nav>
         </div>
       </header>
@@ -28,15 +31,9 @@
           <a class="mdl-navigation__link" href=""><router-link class="navLink" to="/about">About</router-link> </a>
         </nav>
       </div>
-
-
-          <div id="nav">
-              <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link>
-          </div>
-              <router-view @authenticated="setAuthenticated" />
-        </div>
+      <router-view @authenticated="setAuthenticated" />
     </div>
-
+  </div>
 </template>
 
 <script>
