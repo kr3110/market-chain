@@ -16,7 +16,7 @@ namespace org.example.mktchain
    o String id
    o String price
    o DateTime origin
-   o String owner
+   --> Business owner
  }
 
 /**
