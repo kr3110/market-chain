@@ -1,8 +1,7 @@
 {
   "name": "hackblock",
   "short_name": "hackblock",
-  "icons": [
-    {
+  "icons": [{
       "src": "/img/icons/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
@@ -17,4 +16,13 @@
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#4DBA87"
+}
+{
+  "$class": "org.example.mktchain.Contract",
+  "contractId": "01",
+  "buyer": "kk@gmail.com",
+  "seller": "farm@gmail.com",
+
+  "arrivalDateTime": "2018-05-13T13:48:39.419Z",
+  "totalPrice": 300
 }

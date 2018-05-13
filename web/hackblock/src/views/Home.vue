@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home container">
     <div class="mdl-grid">
        <div class="mdl-cell mdl-cell--6-col">
          <div class="hackblock-card mdl-card mdl-shadow--2dp">
@@ -64,15 +64,15 @@ export default {
      'donut-chart': Doughnut
    },
    created() {
-        //  axios.get(`http://jsonplaceholder.typicode.com/posts`)
-        //  .then(response => {
-        //   // JSON responses are automatically parsed.
-        //   this.lineData = response.data
-        //   console.log(this.lineData);
-        // })
-        // .catch(e => {
-        //   this.errors.push(e)
-        // })
+
+         axios.get(`http://184.172.250.206:31090/api/Business/kk@gmail.com`)
+         .then(response => {
+          // JSON responses are automatically parsed.
+          console.log(response.data);
+        })
+        .catch(e => {
+          this.errors.push(e)
+        })
    },
    methods: {
      getLineData: function () {
@@ -81,7 +81,7 @@ export default {
          .then(response => {
           // JSON responses are automatically parsed.
           this.lineData = response.data
-          console.log(this.lineData);
+          console.log(this.lineData.data);
         })
         .catch(e => {
           this.errors.push(e)
