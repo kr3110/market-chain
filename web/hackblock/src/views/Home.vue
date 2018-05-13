@@ -1,9 +1,35 @@
 <template>
   <div class="home ">
     <div class="mdl-grid">
-       <div class="mdl-cell mdl-cell--6-col">
+       <div class="mdl-cell mdl-cell--6-col center">
          <div class="hackblock-card mdl-card mdl-shadow--2dp">
            <div class="mdl-card__title mdl-card--expand">
+
+            <br>
+            <table v-if="searchIsClicked()" style="width:50%">
+              <tr style="text-align: left; ">Business Info</tr>
+              <!-- <tr style="text-align: center">              Business Info</tr> -->
+              <tr>
+                <td style="padding-right: 50px">Name:</td>   <td>{{this.business.name}}</td>
+              </tr>
+              <tr>
+                <td style="padding-right: 50px">Type:</td> <td>{{this.business.type}}</td>
+              </tr>
+              <tr style="padding-right: 50px">
+                <td>Account Balance:</td><td> {{this.business.accountBalance}}</td>
+              </tr>
+              <!-- <tr>{{this.business.address.street}}</tr>
+              <tr>
+                {{this.business.address.zip}}
+              </tr>
+              <tr>
+                {{this.business.address.city}}
+              </tr>
+              <tr>
+                {{this.business.address.country}}
+              </tr> -->
+
+            </table>
 
              <h4>Some chart</h4>
              <line-chart ></line-chart>
@@ -12,8 +38,8 @@
              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                Blah blah blah
              </a>
-             <div class="mdl-layout-spacer"></div>
-             <i class="material-icons">event</i>
+             <!-- <div class="mdl-layout-spacer"></div> -->
+             <!-- <i class="material-icons">event</i> -->
            </div>
          </div>
          <button type="button" name="button" :click="getLineData()" >Click me</button>
@@ -22,15 +48,15 @@
 
 
 
-       <div class="mdl-cell mdl-cell--3-col">
+       <!-- <div class="mdl-cell mdl-cell--3-col">
          <div class="hackblock-card md2-card mdl-shadow--2dp">
            <div class="mdl-card__title mdl-card--expand">
              <!-- <h4>
                Featured event:<br>
                May 24, 2016<br>
                7-11pm
-             </h4> -->
-             <donut-chart></donut-chart>
+             </h4>
+             <bar-chart :options="options" :width="674" :height="400"></bar-chart>
            </div>
            <div class="mdl-card__actions mdl-card--border">
              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
@@ -40,7 +66,7 @@
              <i class="material-icons">event</i>
            </div>
          </div>
-       </div>
+       </div> -->
     </div>
 
     </div>
@@ -54,10 +80,24 @@
 import axios from 'axios';
 import LineChart from '@/components/LineChart.vue';
 import Doughnut  from '@/components/DoughnutChart.vue';
+import BarChart  from '@/components/BarChart.vue';
+
+import { Bar, mixins  } from 'vue-chartjs'
+const { reactiveProp } = mixins
+
 export default {
   name: 'home',
-  data: {
-    lineData: []
+  extends: Bar,
+  data: function(){
+    return {
+    barStuff: [],
+    barData: [],
+    options: {},
+    barLabels:[],
+    searchData: "",
+    business: {},
+    errors: []
+  }
   },
   components: {
      'line-chart': LineChart,
@@ -123,6 +163,13 @@ export default {
 .hackblock-card > .mdl-card__actions,
 .hackblock-card > .mdl-card__actions > .mdl-button {
   color: #fff;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    padding-left: 30px;
 }
 
 </style>

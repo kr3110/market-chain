@@ -33,7 +33,7 @@ export default {
           <div class="col s12 m6">
            <div class="card">
             <div class="card-image">
-              <img src="images/sample-1.jpg">
+              <img src="../assets/${temp[i].name}.jpg">
               <span class="card-title">${temp[i].name}</span>
             </div>
             <div class="card-action">
