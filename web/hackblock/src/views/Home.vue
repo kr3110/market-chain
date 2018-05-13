@@ -1,7 +1,5 @@
 <template>
-
-  <div class="home container">
-
+  <div class="home">
 
 
     <form action="#">
@@ -10,6 +8,7 @@
       </div>
     </form>
     <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" name="button" @click="searchByEmail()"> Search </button>
+
     <div class="mdl-grid">
        <div class="mdl-cell mdl-cell--6-col">
          <div class="hackblock-card mdl-card mdl-shadow--2dp">
@@ -44,7 +43,7 @@
               </tr> -->
 
             </table>
-            
+
            <div class="mdl-card__actions mdl-card--border">
              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                <!-- Account Balance: {{this.business.accountBalance}} -->
@@ -67,7 +66,8 @@
                May 24, 2016<br>
                7-11pm
              </h4> -->
-             <donut-chart></donut-chart>
+             <!-- <donut-chart></donut-chart> -->
+             <bar-chart ref="child" :options="options" :width="674" :height="400"></bar-chart>
            </div>
            <div class="mdl-card__actions mdl-card--border">
              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
@@ -91,11 +91,17 @@
 import axios from 'axios';
 import LineChart from '@/components/LineChart.vue';
 import Doughnut  from '@/components/DoughnutChart.vue';
+import { Bar, mixins  } from 'vue-chartjs'
+const { reactiveProp } = mixins
+
 export default {
   name: 'home',
+  extends: Bar,
   data: function(){
     return {
-    lineData: [],
+    barStuff: [],
+    barData: [],
+    barLabels:[],
     searchData: "",
     business: {},
     errors: []
@@ -106,19 +112,26 @@ export default {
      'donut-chart': Doughnut
    },
    created() {
+          axios.get(`http://184.172.250.206:31090/api/Contract/`)
+         .then(response => {
+          // JSON responses are automatically parsed.
+          this.barStuff = response.data
 
-        //   axios.get(`http://184.172.250.206:31090/api/Contract/` )
-
-        //  .then(response => {
-        //   // JSON responses are automatically parsed.
-        //   this.lineData = response.data
-        //   console.log(this.lineData);
-        // })
-        // .catch(e => {
-        //   this.errors.push(e)
-        // })
-
+          console.log(JSON.parse(JSON.stringify(this.barStuff)));
+          for(var i = 0; i < this.barStuff.length; i++) {
+            this.barData.push( this.barStuff[i].totalPrice);
+            this.barLabels.push(this.barStuff[i].contractId);
+          }
+          console.log("barData");
+          console.log(this.barData);
+          console.log("labelData");
+          console.log(this.barLabels);
+        })
+        .catch(e => {
+          this.errors.push(e)
+        })
    },
+   mixins: [mixins.reactiveProp],
    methods: {
      searchIsClicked: function(){
        return true;
@@ -129,10 +142,8 @@ export default {
          axios.get('http://184.172.250.206:31090/api/Business/' + this.searchData)
          .then(response => {
           // JSON responses are automatically parsed.
-
           this.business = response.data
           console.log(JSON.parse(JSON.stringify(this.business)));
-
         })
         .catch(e => {
           this.errors.push(e)
@@ -140,6 +151,20 @@ export default {
           console.log(this.errors);
         })
      },
+     drawBarChart () {
+        // Overwriting base render method with actual data.
+        this.renderChart({
+          labels: this.barLabels,
+          datasets: [
+            {
+              label: 'Contract Total Price',
+              backgroundColor: '#f87979',
+              data: this.barData
+            }
+          ]
+        })
+      }
+
      // getLineData: function () {
      //     console.log("getLineData() called");
      //     axios.get(`http://jsonplaceholder.typicode.com/posts`)
