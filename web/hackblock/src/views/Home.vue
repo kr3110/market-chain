@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="container home">
 
 
     <form action="#">
@@ -8,24 +8,24 @@
       </div>
     </form>
     <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" name="button" @click="searchByEmail()"> Search </button>
-
-    <div class="mdl-grid">
-       <div class="mdl-cell mdl-cell--6-col center">
+<div class="section"></div>
+    <div class="mdl-grid ">
+       <div class="mdl-cell mdl-cell--6-col ">
          <div class="hackblock-card mdl-card mdl-shadow--2dp">
            <div class="mdl-card__title mdl-card--expand">
 
             <br>
-            <table style="width:50%">
-              <tr style="text-align: left; ">Business Info</tr>
+            <table >
+              <tr style="text-align: left; "><h5>Business Info</h5></tr>
               <!-- <tr style="text-align: center">              Business Info</tr> -->
               <tr>
-                <td style="padding-right: 50px">Name:</td>   <td>{{this.business.name}}</td>
+                <td style=""><h5>Name:</h5></td>   <td><h5>{{this.business.name}}</h5></td>
               </tr>
               <tr>
-                <td style="padding-right: 50px">Type:</td> <td>{{this.business.type}}</td>
+                <td style=""><h5>Type:</h5></td> <td><h5>{{this.business.type}}</h5></td>
               </tr>
-              <tr style="padding-right: 50px">
-                <td>Account Balance:</td><td> {{this.business.accountBalance}}</td>
+              <tr style="">
+               <td><h5>Account Balance:</h5></td><td><h5> {{this.business.accountBalance}}</h5></td>
               </tr>
               <!-- <tr>{{this.business.address.street}}</tr>
               <tr>
@@ -181,13 +181,13 @@ export default {
 
 <style lang="scss">
 .hackblock-card.mdl-card {
-  width: 512px;
-  height: 256px;
+  width: 200%;
+  height: 350px;
   background: #3E4EB8;
 }
 .hackblock-card.md2-card{
-  width: 512px;
-  height: 256px;
+  width: 600px;
+  height: 512px;
   background: #ffb3b3;
 }
 .hackblock-card > .mdl-card__actions {
@@ -218,6 +218,9 @@ export default {
     width: 50%;
     padding: 10px;
     padding-left: 30px;
+}
+.home{
+  overflow-x: hidden;
 }
 
 </style>

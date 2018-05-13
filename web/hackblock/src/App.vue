@@ -11,9 +11,8 @@
       <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
           <!-- Title -->
-          <span class="mdl-layout-title">HackBlock</span>
           <!-- Add spacer, to align navigation to the right -->
-          <div class="mdl-layout-spacer"></div>
+
           <!-- Navigation. We hide it in small screens. -->
           <nav class="mdl-navigation mdl-layout--large-screen-only">
             <a class="mdl-navigation__link" href=""><router-link class="navLink" to="/home">Home</router-link> </a>
@@ -21,18 +20,16 @@
             <a class="mdl-navigation__link" href=""><router-link class="navLink" to="/buy">Buy</router-link> </a>
             <a class="mdl-navigation__link" href=""><router-link class="navLink" to="/sell">Sell</router-link> </a>
             <div id="nav" class="mdl-navigation__link">
-                <router-link v-if="authenticated" to="/login" v-on:click.native="logout()" replace>Logout</router-link>
             </div>
           </nav>
         </div>
       </header>
-      <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">HackBlock</span>
-        <nav class="mdl-navigation">
-          <a class="mdl-navigation__link" href=""><router-link class="navLink" to="/home">Home</router-link> </a>
-          <a class="mdl-navigation__link" href=""><router-link class="navLink" to="/about">About</router-link> </a>
-          <a class="mdl-navigation__link" href=""><router-link class="navLink" to="/buy">Buy</router-link> </a>
-          <a class="mdl-navigation__link" href=""><router-link class="navLink" to="/sell">Sell</router-link> </a>
+      <div class="mdl-layout__drawer s12 m0 black">
+        <nav class="mdl-navigation black">
+          <a class="mdl-navigation__link black" href=""><router-link class="navLink" to="/home">Home</router-link> </a>
+          <a class="mdl-navigation__link black" href=""><router-link class="navLink" to="/about">About</router-link> </a>
+          <a class="mdl-navigation__link black" href=""><router-link class="navLink" to="/buy">Buy</router-link> </a>
+          <a class="mdl-navigation__link black" href=""><router-link class="navLink" to="/sell">Sell</router-link> </a>
 
         </nav>
       </div>
