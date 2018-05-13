@@ -43,7 +43,7 @@ export default {
     return {
       authenticated: false,
       mockAccount: {
-        username: "asdf@gmail.com",
+        username: "kk@gmail.com",
         password: "temp1234"
       }
     }

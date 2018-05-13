@@ -1,14 +1,17 @@
 <template>
-  <div class="login">
+  <div class="login container">
     <img src="../assets/logo.png">
+    <div class=" container">
     <input type="text" name="username" v-model="input.username" placeholder="Username">
-    <input type="password" name="password" v-model="input.password" placeholder="Password">
+    <input type="password"  name="password" v-model="input.password" placeholder="Password">
     <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" @click="login()" name="button"> Login </button>
     <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" @click="register()" name="button"> Sign up </button>
+  </div>
   </div>
 </template>
 
 <script>
+
 
 export default {
   name: 'login',

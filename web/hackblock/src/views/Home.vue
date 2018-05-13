@@ -1,5 +1,7 @@
 <template>
-  <div class="home">
+
+  <div class="home container">
+
 
 
     <form action="#">
@@ -8,7 +10,6 @@
       </div>
     </form>
     <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" name="button" @click="searchByEmail()"> Search </button>
-
     <div class="mdl-grid">
        <div class="mdl-cell mdl-cell--6-col">
          <div class="hackblock-card mdl-card mdl-shadow--2dp">
@@ -105,6 +106,7 @@ export default {
      'donut-chart': Doughnut
    },
    created() {
+
         //   axios.get(`http://184.172.250.206:31090/api/Contract/` )
 
         //  .then(response => {
@@ -115,6 +117,7 @@ export default {
         // .catch(e => {
         //   this.errors.push(e)
         // })
+
    },
    methods: {
      searchIsClicked: function(){
@@ -126,8 +129,10 @@ export default {
          axios.get('http://184.172.250.206:31090/api/Business/' + this.searchData)
          .then(response => {
           // JSON responses are automatically parsed.
+
           this.business = response.data
           console.log(JSON.parse(JSON.stringify(this.business)));
+
         })
         .catch(e => {
           this.errors.push(e)
