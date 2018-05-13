@@ -34,8 +34,9 @@ export default {
            <div class="card">
             <div class="card-image">
               <img src="../assets/${temp[i].name}.jpg">
-              <span class="card-title">${temp[i].name}</span>
+
             </div>
+            <span class="card-title">${temp[i].name}</span>
             <div class="card-action">
               <a class="modal-trigger" href="#${temp[i].name}Modal">BUY</a>
             </div>
@@ -59,6 +60,7 @@ export default {
            </div>
 
            `)
+
       }
     })
     .catch(e => {
