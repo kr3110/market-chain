@@ -1,22 +1,58 @@
 <template>
-  <div class="home container">
+  <div class="home">
+
+
+    <form action="#">
+      <div class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" placeholder="Search by Email" v-model="searchData" id="sample1">
+      </div>
+    </form>
+    <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" name="button" @click="searchByEmail()"> Search </button>
+
     <div class="mdl-grid">
        <div class="mdl-cell mdl-cell--6-col">
          <div class="hackblock-card mdl-card mdl-shadow--2dp">
            <div class="mdl-card__title mdl-card--expand">
+             <div>
+            <h4>
+              Business Info
+            </h4>
+            </div>
+            <br>
+            <table v-if="searchIsClicked()" style="width:50%">
 
-             <h4>Some chart</h4>
-             <line-chart ></line-chart>
-           </div>
+              <!-- <tr style="text-align: center">              Business Info</tr> -->
+              <tr>
+                <td>Name:</td><td>{{this.business.name}}</td>
+              </tr>
+              <tr>
+                <td>Type:</td> <td>{{this.business.type}}</td>
+              </tr>
+              <tr>
+                <td>Account Balance:</td><td> {{this.business.accountBalance}}</td>
+              </tr>
+              <!-- <tr>{{this.business.address.street}}</tr>
+              <tr>
+                {{this.business.address.zip}}
+              </tr>
+              <tr>
+                {{this.business.address.city}}
+              </tr>
+              <tr>
+                {{this.business.address.country}}
+              </tr> -->
+
+            </table>
+
            <div class="mdl-card__actions mdl-card--border">
              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-               Blah blah blah
+               <!-- Account Balance: {{this.business.accountBalance}} -->
              </a>
              <div class="mdl-layout-spacer"></div>
-             <i class="material-icons">event</i>
+             <!-- <i class="material-icons">event</i> -->
            </div>
          </div>
-         <button type="button" name="button" :click="getLineData()" >Click me</button>
+         <!-- <button type="button" name="button" :click="getLineData()" >Click me</button> -->
 
        </div>
 
@@ -30,7 +66,8 @@
                May 24, 2016<br>
                7-11pm
              </h4> -->
-             <donut-chart></donut-chart>
+             <!-- <donut-chart></donut-chart> -->
+             <bar-chart ref="child" :options="options" :width="674" :height="400"></bar-chart>
            </div>
            <div class="mdl-card__actions mdl-card--border">
              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
@@ -54,39 +91,92 @@
 import axios from 'axios';
 import LineChart from '@/components/LineChart.vue';
 import Doughnut  from '@/components/DoughnutChart.vue';
+import { Bar, mixins  } from 'vue-chartjs'
+const { reactiveProp } = mixins
+
 export default {
   name: 'home',
-  data: {
-    lineData: []
+  extends: Bar,
+  data: function(){
+    return {
+    barStuff: [],
+    barData: [],
+    barLabels:[],
+    searchData: "",
+    business: {},
+    errors: []
+  }
   },
   components: {
      'line-chart': LineChart,
      'donut-chart': Doughnut
    },
    created() {
-
-         axios.get(`http://184.172.250.206:31090/api/Business/kk@gmail.com`)
+          axios.get(`http://184.172.250.206:31090/api/Contract/`)
          .then(response => {
           // JSON responses are automatically parsed.
-          console.log(response.data);
+          this.barStuff = response.data
+
+          console.log(JSON.parse(JSON.stringify(this.barStuff)));
+          for(var i = 0; i < this.barStuff.length; i++) {
+            this.barData.push( this.barStuff[i].totalPrice);
+            this.barLabels.push(this.barStuff[i].contractId);
+          }
+          console.log("barData");
+          console.log(this.barData);
+          console.log("labelData");
+          console.log(this.barLabels);
         })
         .catch(e => {
           this.errors.push(e)
         })
    },
+   mixins: [mixins.reactiveProp],
    methods: {
-     getLineData: function () {
-         console.log("getLineData() called");
-         axios.get(`http://jsonplaceholder.typicode.com/posts`)
+     searchIsClicked: function(){
+       return true;
+     },
+     searchByEmail: function(){
+       console.log("searchByEmail() called");
+       console.log(this.searchData);
+         axios.get('http://184.172.250.206:31090/api/Business/' + this.searchData)
          .then(response => {
           // JSON responses are automatically parsed.
-          this.lineData = response.data
-          console.log(this.lineData.data);
+          this.business = response.data
+          console.log(JSON.parse(JSON.stringify(this.business)));
         })
         .catch(e => {
           this.errors.push(e)
+          console.log("error: ");
+          console.log(this.errors);
         })
-     }
+     },
+     drawBarChart () {
+        // Overwriting base render method with actual data.
+        this.renderChart({
+          labels: this.barLabels,
+          datasets: [
+            {
+              label: 'Contract Total Price',
+              backgroundColor: '#f87979',
+              data: this.barData
+            }
+          ]
+        })
+      }
+
+     // getLineData: function () {
+     //     console.log("getLineData() called");
+     //     axios.get(`http://jsonplaceholder.typicode.com/posts`)
+     //     .then(response => {
+     //      // JSON responses are automatically parsed.
+     //      this.lineData = response.data
+     //      console.log(this.lineData);
+     //    })
+     //    .catch(e => {
+     //      this.errors.push(e)
+     //    })
+     // }
    }
 };
 </script>
